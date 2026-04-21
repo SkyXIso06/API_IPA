@@ -31,3 +31,28 @@ class UsuarioRepository:
             conn.commit()
         finally:
             conn.close()
+
+
+    def login(self, correo, password) -> Optional[Usuario]:
+        conn = self.db.connect()
+        try:
+           
+            with conn.cursor(dictionary=True) as cur:
+                cur.execute("CALL sp_Login(%s, %s)", (correo, password))
+                row = cur.fetchone() 
+                
+                if row:
+                    return Usuario(
+                        nombre=row["nombre"],
+                        apellidos=row["apellidos"],
+                        correo=row["correo"],
+                        contraseña=row["contraseña"],
+                        nickname=row["nickname"],
+                        fecha_nacimiento=row["fecha_nacimiento"],
+                        telefono=row["telefono"],
+                        direccion=row["direccion"],
+                        imagen=row["imagen"]
+                    )
+        finally:
+            conn.close()
+        return None

@@ -20,4 +20,11 @@ class UsuarioClass:
         )
         self.repo.add(usuario)
         return usuario
+    
+    
+    def login_usuario(self, correo, password) -> Optional[Usuario]:
+        return self.repo.login(correo, password)
+  
+    
+        
 
