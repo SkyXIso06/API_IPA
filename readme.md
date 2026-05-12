@@ -21,7 +21,7 @@ La API utiliza **JWT (JSON Web Tokens)** para proteger los endpoints.
 ### Endpoints protegidos (requieren token):
 - Productos, ventas y reportes.
 
-### Cómo enviar el token:
+
 
 ```http
 Authorization: Bearer <token_jwt> ```
