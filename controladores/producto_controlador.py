@@ -27,7 +27,7 @@ def crear():
             if campo not in producto or not producto[campo]:
                 return jsonify({"error": f"El campo {campo} es obligatorio"}), 400
 
-        # 3. Validacion de tipos de datos (Numeros positivos)
+        # 3. Validacion de tipos de datos 
         try:
             if float(producto["precio"]) <= 0:
                 return jsonify({"error": "El precio debe ser mayor a cero"}), 400
@@ -84,9 +84,14 @@ def actualizar(producto_id):
         # 2. Leer datos 
         data = request.form.to_dict()
         foto = request.files.get("imagen")
-
         if foto:
             data["imagen"] = foto.read()
+
+         # Si no se envía nueva datos, se mantiene la existente
+        for key, value in data.items():
+            if value.strip() == "":
+                data[key] = None
+
 
         # 3. Validaciones 
         if "precio" in data and float(data["precio"]) <= 0:

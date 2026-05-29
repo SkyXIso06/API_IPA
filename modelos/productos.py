@@ -1,11 +1,21 @@
 from dataclasses import dataclass
-@dataclass
 class Productos:
-    producto_id: int
-    nombre: str
-    descripcion: str
-    precio: float
-    existencias: int
-    estatus: bool
-    unidades: str
-    imagen: bytearray
+    def __init__(
+        self,
+        nombre,
+        descripcion,
+        precio,
+        existencias,
+        estatus,
+        unidades,
+        imagen,
+        producto_id=None
+    ):
+        self.producto_id = producto_id
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.precio = precio
+        self.existencias = existencias
+        self.estatus = estatus
+        self.unidades = unidades
+        self.imagen = imagen

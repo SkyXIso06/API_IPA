@@ -28,8 +28,13 @@ class ProductoRepository:
                         producto.imagen
                     )
                     )
+                cur.execute("SELECT LAST_INSERT_ID() AS id")
+                row = cur.fetchone()
+                producto_id = row[0]
+                
                 
             conn.commit()
+            return producto_id
         finally:
             conn.close()
 

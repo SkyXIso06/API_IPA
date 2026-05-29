@@ -3,10 +3,14 @@ from repositorios.reportes_repositorio import ReporteRepository
 from servicios.producto_servicio import ProductoClass as service_producto
 from database import Database
 from flask_jwt_extended import jwt_required
+from servicios.producto_servicio import ProductoClass
+from repositorios.productos_repositorio import ProductoRepository
 import base64
 
 reporte_bp = Blueprint("reports", __name__)
 db = Database()
+
+service_producto = ProductoClass(ProductoRepository(db))
 repo = ReporteRepository(db)
 
 @reporte_bp.get("/caja")

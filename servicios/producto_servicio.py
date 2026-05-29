@@ -1,6 +1,7 @@
 from typing import Optional,List
 from modelos.productos import Productos
 from repositorios.productos_repositorio import ProductoRepository
+
 class ProductoClass:
     def __init__(self, repo: ProductoRepository):
         self.repo = repo
@@ -15,7 +16,8 @@ class ProductoClass:
             unidades=data["unidades"],
             imagen=data["imagen"]
         )
-        self.repo.add(producto)
+        producto.producto_id = self.repo.add(producto)
+
         return producto
     
     def get_producto(self, producto_id) -> Optional[Productos]:
@@ -27,12 +29,12 @@ class ProductoClass:
         producto = self.repo.get_by_id(producto_id)
         if not producto:
             return None
-        
         for key, value in data.items():
-            if hasattr(producto, key): # Solo actualiza si el atributo ya existe en la clase
+            if hasattr(producto, key):
              setattr(producto, key, value)
 
         self.repo.update(producto)
+        producto = self.repo.get_by_id(producto_id)  # Obtener el producto actualizado
         return producto
     
     
